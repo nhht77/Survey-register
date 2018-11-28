@@ -22,7 +22,7 @@ export class FormUserDetails extends Component {
   };
 
   render() {
-    const { values: {username,firstName, lastName, email, birthdate, phone, streetAddress, postalCode } } = this.props;
+    const { values: {username,firstName, lastName, email, birthdate, phone, streetAddress, postalCode, type } } = this.props;
     return (
       <MuiThemeProvider>
         <React.Fragment>
@@ -59,6 +59,10 @@ export class FormUserDetails extends Component {
             <ListItem 
                 primaryText="Postal Code"
                 secondaryText={ postalCode }
+            />
+            <ListItem 
+                primaryText="Service type"
+                secondaryText={ type }
             />
           </List>
           <br/>

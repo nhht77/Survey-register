@@ -4,6 +4,13 @@ import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+
+
 export class FormUserDetails extends Component {
   continue = e => {
     e.preventDefault();
@@ -42,6 +49,38 @@ export class FormUserDetails extends Component {
             defaultValue={values.email}
           />
           <br />
+          <InputLabel
+          id="standard-name"
+          children="Type"
+          name="ans1"
+          margin="dense"
+          style={styles.InputLabel}
+          variant="filled"
+          />
+        <br/>
+          <FormControl style={styles.RadioAnswer} component="fieldset">
+            <RadioGroup
+              aria-label="position"
+              name="position"
+              value={values.type}
+              onChange={handleChange('type')}
+              row
+            >
+          <FormControlLabel
+                value={"Customer"}
+                control={<Radio color="primary" />}
+                label={"Customer"}
+                labelPlacement="top"
+            />
+          <FormControlLabel
+                value={"Company"}
+                control={<Radio color="primary" />}
+                label={"Company"}
+                labelPlacement="top"
+            />
+            </RadioGroup>
+      </FormControl>
+          <br />
           <RaisedButton
             label="Continue"
             primary={true}
@@ -63,7 +102,7 @@ export class FormUserDetails extends Component {
 const styles = {
   button: {
     margin: 15
-  }
+  },
 };
 
 export default FormUserDetails;

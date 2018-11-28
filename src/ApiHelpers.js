@@ -1,5 +1,4 @@
 export async function registerCustomer(val){
-    const birthdate = val.birthdate.split("/").reverse().join("-");;
 
     return fetch("/users", {
         method: 'post',
@@ -10,10 +9,11 @@ export async function registerCustomer(val){
         firstname: val.firstName,
         lastname: val.lastName,
         email: val.email,
-        birthdate: birthdate,
+        birthdate: val.birthdate.split("/").reverse().join("-"),
         phone: val.phone,
         streetAddress: val.streetAddress,
-        postalCode: val.postalCode
+        postalCode: val.postalCode,
+        type: val.type
         })
       }).then(res => {
          if(!res.ok) {
@@ -28,7 +28,7 @@ export async function registerCustomer(val){
            }
          }
          return res.json();
-      }).then(console.log(birthdate));
+      })
 }
 
 export async function registerAccount(val){
