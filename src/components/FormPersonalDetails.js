@@ -4,6 +4,8 @@ import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
+import TextDate from '@material-ui/core/TextField';
+
 export class FormPersonalDetails extends Component {
   continue = e => {
     e.preventDefault();
@@ -21,12 +23,7 @@ export class FormPersonalDetails extends Component {
       <MuiThemeProvider>
         <React.Fragment>
           <AppBar title="Enter Personal Details" />
-          <TextField
-            hintText="Enter Your Birthdate"
-            floatingLabelText="Birthdate"
-            onChange={handleChange('birthdate')}
-            defaultValue={values.birthdate}
-          />
+
           <br />
           <TextField
             hintText="Enter Your phone"
@@ -34,6 +31,19 @@ export class FormPersonalDetails extends Component {
             onChange={handleChange('phone')}
             defaultValue={values.phone}
           />
+          <br/>
+          <TextDate
+          id="date"
+          label="Birthdate"
+          type="date"
+          onChange={handleChange('birthdate')}
+          defaultValue={values.birthdate}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          style={{width:256}}
+        />
+
           <br />
           <TextField
             hintText="Enter Your street Address"
