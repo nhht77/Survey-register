@@ -24,11 +24,21 @@ export class FormUserDetails extends Component {
     
   continue = e => {
     e.preventDefault();
-    if(this.state.password !== this.props.values.password){
+    if(this.props.values.passwordConfirm !== this.props.values.password){
       console.log('Password does not match!')
+      this.setState({isMatch: false})
+    }else{
+      this.props.nextStep();
     }
-    this.props.nextStep();
+    
   };
+
+  handlePasswordMatch = (password, passwordConfirm) => {
+    if( password !== passwordConfirm){
+      console.log('Password does not match!')
+      this.setState({isMatch:false})
+    }
+  }
 
   handleClickShowPassword = () => {
     this.setState(state => ({ showPassword: !state.showPassword }));
@@ -39,6 +49,7 @@ export class FormUserDetails extends Component {
   }
 
   render() {
+    const {isMatch, showPassword } = this.state;
     const { values, handleChange} = this.props;
     return (
       <MuiThemeProvider>
@@ -52,11 +63,10 @@ export class FormUserDetails extends Component {
           />
           <br />
           
-          <FormControl>
+          <FormControl error={isMatch ? false : true} style={styles.Input}>
           <InputLabel htmlFor="adornment-password">Password</InputLabel>
           <Input
-            id="adornment-password"
-            type={this.state.showPassword ? 'text' : 'password'}
+            type={showPassword ? 'text' : 'password'}
             defaultValue={values.password}
             onChange={handleChange('password')}
             endAdornment={
@@ -65,24 +75,23 @@ export class FormUserDetails extends Component {
                   aria-label="Toggle password visibility"
                   onClick={this.handleClickShowPassword}
                 >
-                  {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
             }
           />
-          {this.state.isMatch ? null : <FormHelperText id="component-error-text">Password is not Match</FormHelperText> }
+          {isMatch ? null : <FormHelperText id="component-error-text">Password is not Match</FormHelperText> }
           </FormControl>
           <br />
-          <FormControl style={styles.Input}>
+
+          <FormControl error={isMatch ? false : true} style={styles.Input}>
           <InputLabel htmlFor="adornment-password">Confirm Your Password</InputLabel>
           <Input
-            id="adornment-password"
             type='password'
-            
-            defaultValue={this.state.password}
-            onChange={handleChange(this.state.password)}
+            defaultValue={values.passwordConfirm}
+            onChange={handleChange('passwordConfirm')}
           />
-          {this.state.isMatch ? null : <FormHelperText id="component-error-text">Password is not Match</FormHelperText> }
+          {isMatch ? null : <FormHelperText id="component-error-text">Password is not Match</FormHelperText> }
           </FormControl>
           <br />
           <RaisedButton
@@ -103,7 +112,7 @@ const styles = {
   },
   Input:{
     width: 256,
-    margin:15
+    margin:25
   }
 };
 
